@@ -1,40 +1,55 @@
 <?php
 session_start();
 
+$firstName = null;
+$lastName = null;
+$gender = null;
+$placeOfBirth = null;
+$birthday = null;
+$previousSchool = null;
+$levelAtPreviousSchool = null;
+$language = null;
+$medical = null;
+
 if (isset($_POST["confirm"])) {
-    if (isset($_POST["firstName"]) && isset($_POST["lastName"])) {
-        $_SESSION["firstName"] = $_POST["firstName"];
-        $_SESSION["lastName"] = $_POST["lastName"];
+    
+    if (isset($_POST["firstName"])) {
+        $firstName = $_POST["firstName"];
     }
-
+    if (isset($_POST["lastName"])) {
+        $lastName = $_POST["lastName"];
+    }
     if (isset($_POST["gender"])) {
-        $_SESSION["gender"] = $_POST["gender"];
+        $gender = $_POST["gender"];
     }
-
     if (isset($_POST["placeOfBirth"])) {
-        $_SESSION["placeOfBirth"] = $_POST["placeOfBirth"];
+        $placeOfBirth = $_POST["placeOfBirth"];
     }
-
     if (isset($_POST["birthday"])) {
-        $_SESSION["birthday"] = $_POST["birthday"];
+        $birthday = $_POST["birthday"];
     }
-
     if (isset($_POST["previousSchool"])) {
-        $_SESSION["previousSchool"] = $_POST["previousSchool"];
+        $previousSchool = $_POST["previousSchool"];
     }
-
     if (isset($_POST["levelAtPreviousSchool"])) {
-        $_SESSION["levelAtPreviousSchool"] = $_POST["levelAtPreviousSchool"];
+        $levelAtPreviousSchool = $_POST["levelAtPreviousSchool"];
     }
-
     if (isset($_POST["language"])) {
-        $_SESSION["language"] = $_POST["language"];
+        $language = $_POST["language"];
     }
-
     if (isset($_POST["medical"])) {
-        $_SESSION["medical"] = $_POST["medical"];
+        $medical = $_POST["medical"];
     }
 
+    $_SESSION["firstName"] = $firstName;
+    $_SESSION["lastName"] = $lastName;
+    $_SESSION["gender"] = $gender;
+    $_SESSION["placeOfBirth"] = $placeOfBirth;
+    $_SESSION["birthday"] = $birthday;
+    $_SESSION["previousSchool"] = $previousSchool;
+    $_SESSION["levelAtPreviousSchool"] = $levelAtPreviousSchool;
+    $_SESSION["language"] = $language;
+    $_SESSION["medical"] = $medical;
 
     header("Location: display.php");
     exit();
