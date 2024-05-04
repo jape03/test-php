@@ -1,4 +1,4 @@
-# Missing server.php in laravel project <br>
+# Missing server.php in laravel project 
 
 # Create a php file, name it server.php and paste this code
 
@@ -26,8 +26,8 @@ if ($uri !== '/' && file_exists(__DIR__.'/public'.$uri)) {
 require_once __DIR__.'/public/index.php';
 
 
-# To run laravel project on localhost using XAMPP <br>
-# Rename the server.php into index.php <br>
-    # IF MISSING MAKE A SERVER.PHP then rename it <br>
-# Next copy .htaccess file from public folder to htdocs <br>
+# To run laravel project on localhost using XAMPP 
+# Rename the server.php into index.php 
+    # IF MISSING MAKE A SERVER.PHP then rename it 
+# Next copy .htaccess file from public folder to htdocs 
 # Done
