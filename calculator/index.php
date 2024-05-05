@@ -15,7 +15,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (isset($_POST["operator"])) {
         $_SESSION["display"] .= $_POST["operator"];
     } elseif (isset($_POST["calculate"])) {
-        $_SESSION["display"] = eval("return " . $_SESSION["display"] . ";");
+        try {
+            $_SESSION["display"] = eval("return " . $_SESSION["display"] . ";");
+        } catch (ParseError $e) {
+            $_SESSION["display"] = "Error";
+        }
     } elseif (isset($_POST["clear"])) {
         $_SESSION["display"] = "";
     }
@@ -28,122 +32,85 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
     <title>Document</title>
     <style>
         /* CSS */
 
-        body {
-            background-color: #f0f0f0;
-            background-image: url(kokik.jpg);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
         h1 {
             text-align: center;
-            font-family: cursive;
-            margin-top: 30px;
-            color: #6c5b7b;
+            font-family: "Sofia", sans-serif;
+            color: palevioletred;
+            font-size: 100px;
+        }
+
+        .button_ {
+            text-align: center;
+
+        }
+
+        body {
+            background-image: url("kokik.jpg");
         }
 
         .display {
-            font-size: 2em;
-            width: 90%;
-            max-width: 500px;
-            height: 100px;
-            background-color: #fff;
-            border: 6px solid #f67280;
-            border-radius: 15px;
+            text-align: center;
+            font-size: 50px;
+            font-family: "Sofia", sans-serif;
+            color: #ee9ca7;
+            width: 100%;
+            height: 140px;
+            background-color: white;
+            border: 6px solid pink;
+            border-radius: 10px;
             margin: auto;
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #6c5b7b;
-        }
-
-        .calcu {
-            width: 300px;
-            max-width: 90%;
-            border: 10px solid #f67280;
-            border-radius: 15px;
-            background-color: #ebebeb;
-            padding: 20px;
-            margin: 50px auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
         }
 
         .button_row {
-            width: 100%;
+            font-family: cursive;
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+
+        }
+
+        .calcu {
+            width: 500px;
+            height: 400px;
+            border: 10px solid pink;
+            border-radius: 10px;
+            background-color: lightgrey;
+            padding: 40px;
+            margin: 100px auto;
         }
 
         .button {
-            width: 60px;
-            height: 60px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2em;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            background-color: #6c5b7b;
-            color: #fff;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .button:hover {
-            background-color: #f67280;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .button-container {
-            display: inline-block;
+            background-image: linear-gradient(to right, #ee9ca7 0%, #ffdde1  51%, #ee9ca7  100%);
             margin: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .button-container button {
-            background-color: #EA4C89;
-            border: none;
-            border-radius: 8px;
-            color: #FFFFFF;
-            cursor: pointer;
-            font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            height: 40px;
-            line-height: 20px;
-            outline: none;
-            padding: 10px 16px;
+            padding: 15px 45px;
             text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: whitesmoke;            
+            box-shadow: 0 0 20px #eee;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .grad:hover {
+            background-position: right center; 
+            color: #fff;
             text-decoration: none;
-            transition: background-color 0.3s;
-            user-select: none;
-
-        }
-
-        .button-container button:hover,
-        .button-container button:focus {
-            background-color: #F082AC;
-        }
+          }
+         
     </style>
 </head>
 
 <body>
+
     <h1>CALCULATOR</h1>
     <div class="calcu">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
-            <div class="display" name="display"><?php echo htmlspecialchars($_SESSION["display"]); ?></div>
             <div class="button_row">
                 <button class="button" type="submit" name="number" value="7">7</button>
                 <button class="button" type="submit" name="number" value="8">8</button>
@@ -169,10 +136,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button class="button" type="submit" name="calculate" value="=">=</button>
             </div>
         </form>
+        <div class="display" name="display"><?php echo htmlspecialchars($_SESSION["display"]); ?></div>
     </div>
-    <div class="button-container">
+    <div class="button_">
         <form action="index.php" method="post">
-            <button type="submit" name="clear" value="clear">CLEAR</button>
+            <button type="submit" name="clear" value="clear_">CLEAR</button>
+            <a href="#" class="grad"></a>
         </form>
     </div>
 </body>
